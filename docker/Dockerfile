@@ -10,33 +10,51 @@ RUN if [ "x$(nproc)" = "x1" ] ; then export USE_PROC=1 ; else export USE_PROC=$(
       apt-get update && apt-get install -y \
       cmake \
       libatlas-base-dev \
+      libgflags-dev\
       libeigen3-dev \
       libgoogle-glog-dev \
       libsuitesparse-dev \
+      libatlas-base-dev \
       python-catkin-tools \
       ros-${ROS_DISTRO}-cv-bridge \
       ros-${ROS_DISTRO}-image-transport \
       ros-${ROS_DISTRO}-message-filters \
+      wget \
       ros-${ROS_DISTRO}-tf && \
     rm -rf /var/lib/apt/lists/* && \
     # Build and install Ceres
-    git clone https://ceres-solver.googlesource.com/ceres-solver && \
-    cd ceres-solver && \
-    git checkout tags/${CERES_VERSION} && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make -j${USE_PROC} install && \
-    cd ../.. && \
-    rm -rf ./ceres-solver && \
-    # Build and install pcl
-    git clone https://github.com/PointCloudLibrary/pcl.git && \
-    cd pcl && \
-    git checkout tags/pcl-${PCL_VERSION} && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make -j${USE_PROC} install && \
-    cd ../.. && \
-    rm -rf ./pcl && \
+    
+    # git clone https://github.com/PointCloudLibrary/pcl.git && \
+    # cd pcl && \
+    # git checkout tags/pcl-${PCL_VERSION} && \
+    # mkdir build && cd build && \
+    # cmake .. && \
+    # make -j${USE_PROC} install && \
+    # cd ../.. && \
+    # rm -rf ./pcl && \
+
+
+    # wget http://ceres-solver.org/ceres-solver-1.12.0.tar.gz && \
+    # tar zxf ceres-solver-1.12.0.tar.gz && \
+    # mkdir ceres-bin && \
+    # cd ceres-bin    && \
+    # cmake ../ceres-solver-1.12.0 && \
+    # make -j3 && \
+    # make test && \
+    # make install && \
+    # cd ../.. && \
+    # rm -rf ./ceres-bin && \
+
+
+# git clone https://ceres-solver.googlesource.com/ceres-solver && \
+#  cd ceres-solver && \
+#   git checkout tags/${CERES_VERSION} && \
+#   mkdir build && cd build && \
+#   cmake .. && \
+#   make -j${USE_PROC} install && \
+#   cd ../.. && \
+#   rm -rf ./ceres-solver && \
+    # Build and install pcl 
     # Setup catkin workspace
     mkdir -p $CATKIN_WS/src/A-LOAM/
     
@@ -48,13 +66,13 @@ COPY ./ $CATKIN_WS/src/A-LOAM/
 # RUN git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git
 
 # Build A-LOAM
-WORKDIR $CATKIN_WS
-ENV TERM xterm
-ENV PYTHONIOENCODING UTF-8
-RUN catkin config \
-      --extend /opt/ros/$ROS_DISTRO \
-      --cmake-args \
-        -DCMAKE_BUILD_TYPE=Release && \
-    catkin build && \
-    sed -i '/exec "$@"/i \
-            source "/root/catkin_ws/devel/setup.bash"' /ros_entrypoint.sh
+# WORKDIR $CATKIN_WS
+# ENV TERM xterm
+# ENV PYTHONIOENCODING UTF-8
+# RUN catkin config \
+#       --extend /opt/ros/$ROS_DISTRO \
+#       --cmake-args \
+#         -DCMAKE_BUILD_TYPE=Release && \
+#     catkin build && \
+#     sed -i '/exec "$@"/i \
+#             source "/root/catkin_ws/devel/setup.bash"' /ros_entrypoint.sh

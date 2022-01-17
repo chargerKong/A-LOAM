@@ -1,6 +1,6 @@
 <launch>
     
-    <param name="scan_line" type="int" value="32" />
+    <param name="scan_line" type="int" value="16" />
 
     <!-- if 1, do mapping 10 Hz, if 2, do mapping 5 Hz. Suggest to use 1, it will adjust frequence automaticlly -->
     <param name="mapping_skip_frame" type="int" value="1" />
@@ -16,9 +16,9 @@
 
     <node pkg="aloam_velodyne" type="alaserOdometry" name="alaserOdometry" output="screen" />
 
-    <node pkg="aloam_velodyne" type="alaserMapping" name="alaserMapping" output="screen" />
+    <!-- <node pkg="aloam_velodyne" type="alaserMapping" name="alaserMapping" output="screen" /> -->
 
-    <arg name="rviz" default="true" />
+    <arg name="rviz" default="false" />
     <group if="$(arg rviz)">
         <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find aloam_velodyne)/rviz_cfg/aloam_velodyne.rviz" />
     </group>

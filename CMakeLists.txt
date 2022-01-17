@@ -22,7 +22,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(PCL REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Ceres REQUIRED)
-
+SET(CMAKE_BUILD_TYPE Debug)
 include_directories(
   include
 	${catkin_INCLUDE_DIRS} 
