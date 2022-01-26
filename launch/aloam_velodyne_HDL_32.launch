@@ -16,7 +16,7 @@
 
     <node pkg="aloam_velodyne" type="alaserOdometry" name="alaserOdometry" output="screen" />
 
-    <!-- <node pkg="aloam_velodyne" type="alaserMapping" name="alaserMapping" output="screen" /> -->
+    <node pkg="aloam_velodyne" type="alaserMapping" name="alaserMapping" output="screen" />
 
     <arg name="rviz" default="false" />
     <group if="$(arg rviz)">

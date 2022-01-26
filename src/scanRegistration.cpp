@@ -152,7 +152,7 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     {
         endOri += 2 * M_PI;
     }
-    //printf("end Ori %f\n", endOri);
+    ////printf("end Ori %f\n", endOri);
     // 计算每一个点的scanID 和 相对的时间位置
     // 按照不同的scanID，放入vector的数据里面
     bool halfPassed = false;
@@ -202,10 +202,10 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
         }
         else
         {
-            printf("wrong scan number\n");
+            //printf("wrong scan number\n");
             ROS_BREAK();
         }
-        //printf("angle %f scanID %d \n", angle, scanID);
+        ////printf("angle %f scanID %d \n", angle, scanID);
 
         float ori = -atan2(point.y, point.x);
         if (!halfPassed)
@@ -243,7 +243,7 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     }
     
     cloudSize = count;
-    printf("points size %d \n", cloudSize);
+    //printf("points size %d \n", cloudSize);
 
     pcl::PointCloud<PointType>::Ptr laserCloud(new pcl::PointCloud<PointType>());
     for (int i = 0; i < N_SCANS; i++)
@@ -253,7 +253,7 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
         scanEndInd[i] = laserCloud->size() - 6;
     }
 
-    printf("prepare time %f \n", t_prepare.toc());
+    //printf("prepare time %f \n", t_prepare.toc());
     // 计算曲率
     for (int i = 5; i < cloudSize - 5; i++)
     { 
@@ -414,9 +414,9 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
 
         surfPointsLessFlat += surfPointsLessFlatScanDS;
     }
-    printf("sort q time %f \n", t_q_sort);
-    printf("seperate points time %f \n", t_pts.toc());
-    // printf("length of cornerPointsSharp %f", cornerPointsSharp.size());
+    //printf("sort q time %f \n", t_q_sort);
+    //printf("seperate points time %f \n", t_pts.toc());
+    // //printf("length of cornerPointsSharp %f", cornerPointsSharp.size());
 
 
     sensor_msgs::PointCloud2 laserCloudOutMsg;
@@ -462,7 +462,7 @@ void laserCloudHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
         }
     }
 
-    printf("scan registration time %f ms *************\n", t_whole.toc());
+    //printf("scan registration time %f ms *************\n", t_whole.toc());
     if(t_whole.toc() > 100)
         ROS_WARN("scan registration process over 100ms");
 }
@@ -476,11 +476,11 @@ int main(int argc, char **argv)
 
     nh.param<double>("minimum_range", MINIMUM_RANGE, 0.1);
 
-    printf("scan line number %d \n", N_SCANS);
+    //printf("scan line number %d \n", N_SCANS);
 
     if(N_SCANS != 16 && N_SCANS != 32 && N_SCANS != 64)
     {
-        printf("only support velodyne with 16, 32 or 64 scan line!");
+        //printf("only support velodyne with 16, 32 or 64 scan line!");
         return 0;
     }
 
@@ -509,10 +509,10 @@ int main(int argc, char **argv)
     ros::spin();
 
     // ros::spinOnce();
-    // printf("spin once down");
+    // //printf("spin once down");
     // sleep(5);
     // ros::spinOnce();
-    // printf("spin once down");
+    // //printf("spin once down");
     // ros::spinOnce();
     // ros::spinOnce();
     // ros::spinOnce();
